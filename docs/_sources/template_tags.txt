@@ -1,0 +1,7 @@
+=============
+Template Tags
+=============
+
+{% variation_url object variation %}
+
+returns a url of the object with variations applied to it

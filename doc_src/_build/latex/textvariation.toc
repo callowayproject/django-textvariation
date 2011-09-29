@@ -1,0 +1,49 @@
+\select@language {english}
+\contentsline {chapter}{\numberline {1}Goals of Text Variations}{1}{chapter.1}
+\contentsline {chapter}{\numberline {2}Installation}{3}{chapter.2}
+\contentsline {section}{\numberline {2.1}Dependencies}{3}{section.2.1}
+\contentsline {chapter}{\numberline {3}Getting Started}{5}{chapter.3}
+\contentsline {section}{\numberline {3.1}What are Variations?}{5}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Dimensions}{5}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}Defaults and Graceful Fallback}{5}{subsection.3.1.2}
+\contentsline {subsection}{\numberline {3.1.3}Configuration of Dimensions and Fallback}{6}{subsection.3.1.3}
+\contentsline {subsection}{\numberline {3.1.4}How a variation is determined}{6}{subsection.3.1.4}
+\contentsline {section}{\numberline {3.2}Specifying Variations}{8}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Declaring Something Inappropriate}{8}{subsection.3.2.1}
+\contentsline {section}{\numberline {3.3}Configuring Models with Variations}{9}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Variations}{9}{subsection.3.3.1}
+\contentsline {section}{\numberline {3.4}Setting Up Search}{9}{section.3.4}
+\contentsline {chapter}{\numberline {4}Variations and URLs}{11}{chapter.4}
+\contentsline {section}{\numberline {4.1}Ways of Handling Variations in URLs}{11}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Domain}{11}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {4.1.2}Path Segment}{11}{subsection.4.1.2}
+\contentsline {subsection}{\numberline {4.1.3}Path Parameters or Delimited Suffix}{12}{subsection.4.1.3}
+\contentsline {section}{\numberline {4.2}Defining the URL patterns}{12}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Assigning a variant to a domain}{12}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Dimensions Within the Path}{12}{subsection.4.2.2}
+\contentsline {subsection}{\numberline {4.2.3}Examples}{12}{subsection.4.2.3}
+\contentsline {section}{\numberline {4.3}TextVariationMiddleware}{12}{section.4.3}
+\contentsline {section}{\numberline {4.4}Requested Variation, Returned Variation and URLs}{13}{section.4.4}
+\contentsline {chapter}{\numberline {5}Templates}{15}{chapter.5}
+\contentsline {section}{\numberline {5.1}Context Processors}{15}{section.5.1}
+\contentsline {section}{\numberline {5.2}Canonical URLs}{16}{section.5.2}
+\contentsline {chapter}{\numberline {6}Editing One Dimension}{17}{chapter.6}
+\contentsline {chapter}{\numberline {7}Reference}{19}{chapter.7}
+\contentsline {section}{\numberline {7.1}Settings}{19}{section.7.1}
+\contentsline {subsection}{\numberline {7.1.1}DIMENSIONS}{19}{subsection.7.1.1}
+\contentsline {subsection}{\numberline {7.1.2}DIMENSION\_PRIORITY}{19}{subsection.7.1.2}
+\contentsline {subsection}{\numberline {7.1.3}MODELS}{19}{subsection.7.1.3}
+\contentsline {subsection}{\numberline {7.1.4}DEFAULT\_URL\_REGEX}{19}{subsection.7.1.4}
+\contentsline {subsection}{\numberline {7.1.5}URL\_REGEX\_MAP}{19}{subsection.7.1.5}
+\contentsline {subsection}{\numberline {7.1.6}Example Settings}{19}{subsection.7.1.6}
+\contentsline {section}{\numberline {7.2}Implementation Notes}{21}{section.7.2}
+\contentsline {subsection}{\numberline {7.2.1}Methods}{21}{subsection.7.2.1}
+\contentsline {subsection}{\numberline {7.2.2}Implementation}{21}{subsection.7.2.2}
+\contentsline {subsection}{\numberline {7.2.3}Example Walkthrough}{22}{subsection.7.2.3}
+\contentsline {subsection}{\numberline {7.2.4}Schema Migrations}{23}{subsection.7.2.4}
+\contentsline {section}{\numberline {7.3}Management Commands}{23}{section.7.3}
+\contentsline {section}{\numberline {7.4}Template Tags}{23}{section.7.4}
+\contentsline {section}{\numberline {7.5}TextVariationMiddleware}{24}{section.7.5}
+\contentsline {section}{\numberline {7.6}Object Methods}{24}{section.7.6}
+\contentsline {chapter}{\numberline {8}Items for Future Versions}{25}{chapter.8}
+\contentsline {chapter}{\numberline {9}Indices and tables}{27}{chapter.9}

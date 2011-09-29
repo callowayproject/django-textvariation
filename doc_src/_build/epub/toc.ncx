@@ -1,0 +1,374 @@
+<?xml version="1.0"?>
+<ncx version="2005-1" xmlns="http://www.daisy.org/z3986/2005/ncx/">
+  <head>
+    <meta name="dtb:uid" content="unknown"/>
+    <meta name="dtb:depth" content="3"/>
+    <meta name="dtb:totalPageCount" content="0"/>
+    <meta name="dtb:maxPageNumber" content="0"/>
+  </head>
+  <docTitle>
+    <text>django-textvariation v0.1 documentation</text>
+  </docTitle>
+  <navMap>
+    <navPoint id="navPoint1" playOrder="1">
+      <navLabel>
+        <text>Contents</text>
+      </navLabel>
+      <content src="index.html" />
+    </navPoint>
+    <navPoint id="navPoint2" playOrder="2">
+      <navLabel>
+        <text>Goals of Text Variations</text>
+      </navLabel>
+      <content src="goals.html" />
+    </navPoint>
+    <navPoint id="navPoint3" playOrder="3">
+      <navLabel>
+        <text>Installation</text>
+      </navLabel>
+      <content src="installation.html" />
+      <navPoint id="navPoint3" playOrder="3">
+        <navLabel>
+          <text>Installation</text>
+        </navLabel>
+        <content src="installation.html" />
+      </navPoint>
+      <navPoint id="navPoint4" playOrder="4">
+        <navLabel>
+          <text>Dependencies</text>
+        </navLabel>
+        <content src="installation.html#dependencies" />
+      </navPoint>
+    </navPoint>
+    <navPoint id="navPoint5" playOrder="5">
+      <navLabel>
+        <text>Getting Started</text>
+      </navLabel>
+      <content src="getting_started.html" />
+      <navPoint id="navPoint5" playOrder="5">
+        <navLabel>
+          <text>Getting Started</text>
+        </navLabel>
+        <content src="getting_started.html" />
+      </navPoint>
+      <navPoint id="navPoint6" playOrder="6">
+        <navLabel>
+          <text>What are Variations?</text>
+        </navLabel>
+        <content src="getting_started.html#what-are-variations" />
+        <navPoint id="navPoint6" playOrder="6">
+          <navLabel>
+            <text>What are Variations?</text>
+          </navLabel>
+          <content src="getting_started.html#what-are-variations" />
+        </navPoint>
+        <navPoint id="navPoint7" playOrder="7">
+          <navLabel>
+            <text>Dimensions</text>
+          </navLabel>
+          <content src="getting_started.html#dimensions" />
+        </navPoint>
+        <navPoint id="navPoint8" playOrder="8">
+          <navLabel>
+            <text>Defaults and Graceful Fallback</text>
+          </navLabel>
+          <content src="getting_started.html#defaults-and-graceful-fallback" />
+        </navPoint>
+        <navPoint id="navPoint9" playOrder="9">
+          <navLabel>
+            <text>Configuration of Dimensions and Fallback</text>
+          </navLabel>
+          <content src="getting_started.html#configuration-of-dimensions-and-fallback" />
+        </navPoint>
+        <navPoint id="navPoint10" playOrder="10">
+          <navLabel>
+            <text>How a variation is determined</text>
+          </navLabel>
+          <content src="getting_started.html#how-a-variation-is-determined" />
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint11" playOrder="11">
+        <navLabel>
+          <text>Specifying Variations</text>
+        </navLabel>
+        <content src="getting_started.html#specifying-variations" />
+        <navPoint id="navPoint11" playOrder="11">
+          <navLabel>
+            <text>Specifying Variations</text>
+          </navLabel>
+          <content src="getting_started.html#specifying-variations" />
+        </navPoint>
+        <navPoint id="navPoint12" playOrder="12">
+          <navLabel>
+            <text>Declaring Something Inappropriate</text>
+          </navLabel>
+          <content src="getting_started.html#declaring-something-inappropriate" />
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint13" playOrder="13">
+        <navLabel>
+          <text>Configuring Models with Variations</text>
+        </navLabel>
+        <content src="getting_started.html#configuring-models-with-variations" />
+        <navPoint id="navPoint13" playOrder="13">
+          <navLabel>
+            <text>Configuring Models with Variations</text>
+          </navLabel>
+          <content src="getting_started.html#configuring-models-with-variations" />
+        </navPoint>
+        <navPoint id="navPoint14" playOrder="14">
+          <navLabel>
+            <text>Variations</text>
+          </navLabel>
+          <content src="getting_started.html#variations" />
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint15" playOrder="15">
+        <navLabel>
+          <text>Setting Up Search</text>
+        </navLabel>
+        <content src="getting_started.html#setting-up-search" />
+      </navPoint>
+    </navPoint>
+    <navPoint id="navPoint16" playOrder="16">
+      <navLabel>
+        <text>Variations and URLs</text>
+      </navLabel>
+      <content src="variations_and_urls.html" />
+      <navPoint id="navPoint16" playOrder="16">
+        <navLabel>
+          <text>Variations and URLs</text>
+        </navLabel>
+        <content src="variations_and_urls.html" />
+      </navPoint>
+      <navPoint id="navPoint17" playOrder="17">
+        <navLabel>
+          <text>Ways of Handling Variations in URLs</text>
+        </navLabel>
+        <content src="variations_and_urls.html#ways-of-handling-variations-in-urls" />
+        <navPoint id="navPoint17" playOrder="17">
+          <navLabel>
+            <text>Ways of Handling Variations in URLs</text>
+          </navLabel>
+          <content src="variations_and_urls.html#ways-of-handling-variations-in-urls" />
+        </navPoint>
+        <navPoint id="navPoint18" playOrder="18">
+          <navLabel>
+            <text>Domain</text>
+          </navLabel>
+          <content src="variations_and_urls.html#domain" />
+        </navPoint>
+        <navPoint id="navPoint19" playOrder="19">
+          <navLabel>
+            <text>Path Segment</text>
+          </navLabel>
+          <content src="variations_and_urls.html#path-segment" />
+        </navPoint>
+        <navPoint id="navPoint20" playOrder="20">
+          <navLabel>
+            <text>Path Parameters or Delimited Suffix</text>
+          </navLabel>
+          <content src="variations_and_urls.html#path-parameters-or-delimited-suffix" />
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint21" playOrder="21">
+        <navLabel>
+          <text>Defining the URL patterns</text>
+        </navLabel>
+        <content src="variations_and_urls.html#defining-the-url-patterns" />
+        <navPoint id="navPoint21" playOrder="21">
+          <navLabel>
+            <text>Defining the URL patterns</text>
+          </navLabel>
+          <content src="variations_and_urls.html#defining-the-url-patterns" />
+        </navPoint>
+        <navPoint id="navPoint22" playOrder="22">
+          <navLabel>
+            <text>Assigning a variant to a domain</text>
+          </navLabel>
+          <content src="variations_and_urls.html#assigning-a-variant-to-a-domain" />
+        </navPoint>
+        <navPoint id="navPoint23" playOrder="23">
+          <navLabel>
+            <text>Dimensions Within the Path</text>
+          </navLabel>
+          <content src="variations_and_urls.html#dimensions-within-the-path" />
+        </navPoint>
+        <navPoint id="navPoint24" playOrder="24">
+          <navLabel>
+            <text>Examples</text>
+          </navLabel>
+          <content src="variations_and_urls.html#examples" />
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint25" playOrder="25">
+        <navLabel>
+          <text>TextVariationMiddleware</text>
+        </navLabel>
+        <content src="variations_and_urls.html#textvariationmiddleware" />
+      </navPoint>
+      <navPoint id="navPoint26" playOrder="26">
+        <navLabel>
+          <text>Requested Variation, Returned Variation and URLs</text>
+        </navLabel>
+        <content src="variations_and_urls.html#requested-variation-returned-variation-and-urls" />
+      </navPoint>
+    </navPoint>
+    <navPoint id="navPoint27" playOrder="27">
+      <navLabel>
+        <text>Templates</text>
+      </navLabel>
+      <content src="templates.html" />
+      <navPoint id="navPoint27" playOrder="27">
+        <navLabel>
+          <text>Templates</text>
+        </navLabel>
+        <content src="templates.html" />
+      </navPoint>
+      <navPoint id="navPoint28" playOrder="28">
+        <navLabel>
+          <text>Context Processors</text>
+        </navLabel>
+        <content src="templates.html#context-processors" />
+      </navPoint>
+      <navPoint id="navPoint29" playOrder="29">
+        <navLabel>
+          <text>Canonical URLs</text>
+        </navLabel>
+        <content src="templates.html#canonical-urls" />
+      </navPoint>
+    </navPoint>
+    <navPoint id="navPoint30" playOrder="30">
+      <navLabel>
+        <text>Editing One Dimension</text>
+      </navLabel>
+      <content src="editing_one_dimension.html" />
+    </navPoint>
+    <navPoint id="navPoint31" playOrder="31">
+      <navLabel>
+        <text>Reference</text>
+      </navLabel>
+      <content src="reference/index.html" />
+      <navPoint id="navPoint31" playOrder="31">
+        <navLabel>
+          <text>Reference</text>
+        </navLabel>
+        <content src="reference/index.html" />
+      </navPoint>
+      <navPoint id="navPoint32" playOrder="32">
+        <navLabel>
+          <text>Settings</text>
+        </navLabel>
+        <content src="reference/settings.html" />
+        <navPoint id="navPoint32" playOrder="32">
+          <navLabel>
+            <text>Settings</text>
+          </navLabel>
+          <content src="reference/settings.html" />
+        </navPoint>
+        <navPoint id="navPoint33" playOrder="33">
+          <navLabel>
+            <text>DIMENSIONS</text>
+          </navLabel>
+          <content src="reference/settings.html#dimensions" />
+        </navPoint>
+        <navPoint id="navPoint34" playOrder="34">
+          <navLabel>
+            <text>DIMENSION_PRIORITY</text>
+          </navLabel>
+          <content src="reference/settings.html#dimension-priority" />
+        </navPoint>
+        <navPoint id="navPoint35" playOrder="35">
+          <navLabel>
+            <text>MODELS</text>
+          </navLabel>
+          <content src="reference/settings.html#models" />
+        </navPoint>
+        <navPoint id="navPoint36" playOrder="36">
+          <navLabel>
+            <text>DEFAULT_URL_REGEX</text>
+          </navLabel>
+          <content src="reference/settings.html#default-url-regex" />
+        </navPoint>
+        <navPoint id="navPoint37" playOrder="37">
+          <navLabel>
+            <text>URL_REGEX_MAP</text>
+          </navLabel>
+          <content src="reference/settings.html#url-regex-map" />
+        </navPoint>
+        <navPoint id="navPoint38" playOrder="38">
+          <navLabel>
+            <text>Example Settings</text>
+          </navLabel>
+          <content src="reference/settings.html#example-settings" />
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint39" playOrder="39">
+        <navLabel>
+          <text>Implementation Notes</text>
+        </navLabel>
+        <content src="reference/implementation_notes.html" />
+        <navPoint id="navPoint39" playOrder="39">
+          <navLabel>
+            <text>Implementation Notes</text>
+          </navLabel>
+          <content src="reference/implementation_notes.html" />
+        </navPoint>
+        <navPoint id="navPoint40" playOrder="40">
+          <navLabel>
+            <text>Methods</text>
+          </navLabel>
+          <content src="reference/implementation_notes.html#methods" />
+        </navPoint>
+        <navPoint id="navPoint41" playOrder="41">
+          <navLabel>
+            <text>Implementation</text>
+          </navLabel>
+          <content src="reference/implementation_notes.html#implementation" />
+        </navPoint>
+        <navPoint id="navPoint42" playOrder="42">
+          <navLabel>
+            <text>Example Walkthrough</text>
+          </navLabel>
+          <content src="reference/implementation_notes.html#example-walkthrough" />
+        </navPoint>
+        <navPoint id="navPoint43" playOrder="43">
+          <navLabel>
+            <text>Schema Migrations</text>
+          </navLabel>
+          <content src="reference/implementation_notes.html#schema-migrations" />
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint44" playOrder="44">
+        <navLabel>
+          <text>Management Commands</text>
+        </navLabel>
+        <content src="reference/management_commands.html" />
+      </navPoint>
+      <navPoint id="navPoint45" playOrder="45">
+        <navLabel>
+          <text>Template Tags</text>
+        </navLabel>
+        <content src="reference/template_tags.html" />
+      </navPoint>
+      <navPoint id="navPoint46" playOrder="46">
+        <navLabel>
+          <text>TextVariationMiddleware</text>
+        </navLabel>
+        <content src="reference/middleware.html" />
+      </navPoint>
+      <navPoint id="navPoint47" playOrder="47">
+        <navLabel>
+          <text>Object Methods</text>
+        </navLabel>
+        <content src="reference/object_methods.html" />
+      </navPoint>
+    </navPoint>
+    <navPoint id="navPoint48" playOrder="48">
+      <navLabel>
+        <text>Items for Future Versions</text>
+      </navLabel>
+      <content src="future_versions.html" />
+    </navPoint>
+  </navMap>
+</ncx>

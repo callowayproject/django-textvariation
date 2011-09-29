@@ -1,0 +1,199 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Settings &mdash; django-textvariation v0.1 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="django-textvariation v0.1 documentation" href="../index.html" />
+    <link rel="up" title="Reference" href="index.html" />
+    <link rel="next" title="Implementation Notes" href="implementation_notes.html" />
+    <link rel="prev" title="Reference" href="index.html" /> 
+  </head>
+  <body>
+<div id="docstitle">
+	<p>django-textvariation v0.1 documentation</p>
+</div>
+<div id="header">
+	<div id="title"><h1>Settings</h1></div>
+	<ul id="headerButtons">
+		<li id="toc_button"><div class="headerButton"><a href="#">Table of Contents</a></div></li>
+		<li id="page_buttons">
+			<div class="headerButton"><a href="../genindex.html" title="General Index" accesskey="I">index</a></div>
+			<div class="headerButton"><a href="implementation_notes.html" title="Implementation Notes" accesskey="N">next</a></div>
+			<div class="headerButton"><a href="index.html" title="Reference" accesskey="P">previous</a></div>
+		</li>
+	</ul>
+</div>
+
+<div id="sphinxsidebar">
+  <div class="sphinxsidebarwrapper">
+	<ul><li class="toctree-l1"><a href="../index.html">Main Page</a></li></ul>
+	<ul>
+<li class="toctree-l1"><a class="reference internal" href="../goals.html">Goals of Text Variations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../variations_and_urls.html">Variations and URLs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates.html">Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../editing_one_dimension.html">Editing One Dimension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../future_versions.html">Items for Future Versions</a></li>
+</ul>
+
+    <div id="searchbox" style="display: none">
+      
+        <form class="search" action="../search.html" method="get">
+			<div class="search-wrapper">
+			<span class="search-left"></span>
+			<input class="prettysearch" type="text" name="q" size="18" />
+			<span class="search-right">&nbsp;</span>
+			</div>
+          <input type="submit" value="Search" class="searchbutton" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+        <p class="searchtip" style="font-size: 90%">
+        Enter search terms or a module, class or function name.
+        </p>
+    </div>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+</div>
+
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="settings">
+<span id="id1"></span><h1>Settings<a class="headerlink" href="#settings" title="Permalink to this headline">¶</a></h1>
+<p>All configuration for Django Text Variations occurs within the <tt class="docutils literal"><span class="pre">TEXT_VARIATIONS</span></tt> setting variable. <tt class="docutils literal"><span class="pre">TEXT_VARIATIONS</span></tt> is a dictionary with the following keys:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#settings-dimensions"><em>DIMENSIONS</em></a></li>
+<li><a class="reference internal" href="#settings-dimension-priority"><em>DIMENSION_PRIORITY</em></a></li>
+<li><a class="reference internal" href="#settings-models"><em>MODELS</em></a></li>
+<li><a class="reference internal" href="#settings-default-url-regex"><em>DEFAULT_URL_REGEX</em></a></li>
+<li><a class="reference internal" href="#settings-url-regex-map"><em>URL_REGEX_MAP</em></a></li>
+<li><a class="reference internal" href="#settings-example"><em>Example Settings</em></a></li>
+</ul>
+<div class="section" id="dimensions">
+<span id="settings-dimensions"></span><h2>DIMENSIONS<a class="headerlink" href="#dimensions" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="dimension-priority">
+<span id="settings-dimension-priority"></span><h2>DIMENSION_PRIORITY<a class="headerlink" href="#dimension-priority" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="models">
+<span id="settings-models"></span><h2>MODELS<a class="headerlink" href="#models" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="default-url-regex">
+<span id="settings-default-url-regex"></span><h2>DEFAULT_URL_REGEX<a class="headerlink" href="#default-url-regex" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="url-regex-map">
+<span id="settings-url-regex-map"></span><h2>URL_REGEX_MAP<a class="headerlink" href="#url-regex-map" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="example-settings">
+<span id="settings-example"></span><h2>Example Settings<a class="headerlink" href="#example-settings" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><pre>TEXT_VARIATIONS = {
+    'DIMENSIONS': {
+        'audience': [
+            'ad': {
+                'name': u'Adult',
+                'fallback': None,
+            },
+            'tn': {
+                'name': u'Teen',
+                'fallback': 'ad',
+            },
+            'cd': {
+                'name': u'Child',
+                'fallback': 'tn',
+            }
+        ],
+        'text_dificulty': [
+            'l': {
+                'name': u'Low',
+                'fallback': 's',
+            },
+            's': {
+                'name': u'Standard',
+                'fallback': None,
+            },
+            'a': {
+                'name': u'Advanced',
+                'fallback': 's',
+            }
+        ],
+        'language': [
+            'en': {
+                'name': u'English',
+                'fallback': None,
+            },
+            'es': {
+                'name': u'Español',
+                'fallback': 'en',
+                'domain': 'es.example.com',
+            },
+            'es-mx': {
+                'name': u'Español mexicano',
+                'fallback': 'es',
+                'domain': 'es-mx.example.com',
+            },
+            'fr': {
+                'name': u'Français',
+                'fallback': 'en',
+                'domain': 'fr.example.com',
+            }
+        ],
+    },
+    'DIMENSION_PRIORITY': ['language', 'audience', 'text_difficulty'],
+    'MODELS': {
+        'app.model': ['field1', 'field2'],
+        'app2.model': ['field1', ]
+    },
+    'DEFAULT_URL_REGEX': '{language}/{path};{audience},{text_difficulty}',
+    'URL_REGEX_MAP': {
+        'app.model': '{path};{language},{audience},{text_difficulty}',
+    }
+}</pre>
+</div>
+</div>
+</div>
+
+
+          </div> 
+        </div>
+      </div>
+    <div class="footer">
+    <p>
+      &copy; Copyright 2010, coordt.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+	</p>
+    </div>
+      <div class="clearer"></div>
+    </div>
+	<div id="breadcrumbs">
+		<a href="index.html" accesskey="U">Reference</a><img src="../_static/triangle_closed.png" height="9" width="9" alt="&gt;">
+		Settings
+		</ul>
+	</div>
+	<script type="text/javascript" charset="utf-8" src="../_static/toc.js"></script>
+  </body>
+</html>

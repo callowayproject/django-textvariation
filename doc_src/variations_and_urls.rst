@@ -1,0 +1,111 @@
+===================
+Variations and URLs
+===================
+
+URLs are important. Content should exist at one and only one URL. Each variation in content needs to have a unique URL. Django Text Variation tries to be as flexible as possible by using middleware to check configured patterns as they are requested.
+
+Ways of Handling Variations in URLs
+===================================
+
+A great resource for my research was 
+`this blog post <http://h3h.net/technology/designing-urls-for-multilingual-websites>`_ regarding methods for handling multilingual websites. He defines nine ways of accomplishing language variations in content, many of which are not generic enough for use here.
+
+First and foremost, `query parameters are not recommended. <http://googlewebmastercentral.blogspot.com/2010/03/working-with-multi-regional-websites.html>`_ and will not be supported.
+
+Ultimately, there are three ways specify a unique variation:
+
+* Domain
+
+* Path segment
+
+* Path parameters or other delimited suffix
+
+You can use any combination of these methods to specify your variation.
+
+Domain
+******
+
+The domain difference could be at the host level, such as ``dim1.example.com`` or at a different top-level domain such as ``example.es``\ . Top-level domains are probably only useful for specifying language variations.
+
+.. note:: 
+   You can only vary on one dimension within a domain. That means you can vary on language (``en.example.com``) or audience (``kids.example.com``), but not both (``en.kids.example.com``) within the domain.
+
+Path Segment
+************
+
+A common variation, especially for language specification, is to have the variant prefix the path, such as ``www.example.com/en/`` or ``www.example.com/es/``\ . However, encoding the variant within the path (``www.example.com/blog/en/``\  ) is also supported.
+
+.. note::
+   Putting the variant within the path may make it difficult to re-create variation URLs of items. If the item's URL is either prefixed or suffixed with dimension information, the variation URL is easily created.
+
+Path Parameters or Delimited Suffix
+***********************************
+
+Path parameters are defined by 
+`Section 3.3 of RFC 3986 <http://tools.ietf.org/html/rfc3986#section-3.3>`_
+as semicolon (;) and comma (,). One benefit of the semicolon is support within Python's urlparse module. It is also possible to use a dot (.) delimiter if you wish, although it is less common and not recommended.
+
+
+Defining the URL patterns
+=========================
+
+Assigning a variant to a domain
+*******************************
+
+Domain variations are defined within each variant's dictionary. Each variant for each dimension has several options, one of which is domain. If domain is not specified, the default domain is assumed.
+
+Dimensions Within the Path
+**************************
+
+The middleware checks if the requested path fits a defined set of regular expressions in ``TEXT_VARIATIONS['URL_REGEXES']``\ . To make the regular expressions easier to define, there are two shortcuts available.
+
+**{<dimension_name>}**
+	This string will substitute a named group with every variant as an option. So ``'{language}'`` could result in ``'(?P<language>en|es|es-mx|fr)'``
+
+**{path}**
+	This string will substitute a group to catch any character: ``(.*)``
+
+Examples
+********
+
+Assuming two dimensions: 'language' and 'audience' with variants 'en', 'es', 'es-mx', 'fr' and 'cd', 'tn', 'ad' respectively.
+
+=== =========================================   ========================================
+#   RegEx Pattern                               Result
+=== =========================================   ========================================
+1   ``'{language}/{path};{audience}'``          ``'(?P<language>en|es|es-mx|fr)/(.*);(?P<audience>cd/tn/ad)'``
+2   ``'{path}/{language}/{path};{audience}'``   ``'(.*)/(?P<language>en|es|es-mx|fr)/(.*);(?P<audience>cd/tn/ad)'``
+3   ``'{language}/{path}\.{audience}'``         ``'(?P<language>en|es|es-mx|fr)/(.*)\.(?P<audience>cd/tn/ad)'``
+=== =========================================   ========================================
+
+TextVariationMiddleware
+=======================
+
+The middleware modifies the request
+
+* Matches request path against the configured regular expressions
+
+* If it matches, extract the dimensions and set into ``request.META['TEXT_VARIATIONS']``
+
+* Join the unnamed groups in the matching regular expression with "/"
+
+* Set ``request.path``, ``request.path_info`` and ``request.META['PATH_INFO']`` to the resulting value
+
+See :ref:`textvariationmiddleware` for more detailed information.
+
+
+Requested Variation, Returned Variation and URLs
+================================================
+
+* URLs without dimension information serve the default variation
+
+* URLS should either contain no variation information, or contain information for every dimension.
+
+* If a variant of one dimension is requested, the default variants of any other dimensions should be requested.
+
+* If a requested variation does not exist, a fallback variation is returned. 
+
+* The Text Variation context processor will create a ``text_variations`` variable with the variations returned for each field. If there are multiple variable fields in a model, you should pick one field to populate a ``<link rel="canonical" href="" />`` tag.
+
+* The template could provide an alert on the page that the requested variation was not available and the substituted variation was.
+

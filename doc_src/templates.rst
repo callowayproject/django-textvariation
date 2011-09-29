@@ -1,0 +1,76 @@
+=========
+Templates
+=========
+
+At the top of the page, you need to call a template tag to get the proper variation fit for the object
+
+.. code-block:: django
+
+	{% get_text_variations object %}
+
+Default usage: get the best variation fit for the requested variation:
+
+.. code-block:: django
+
+	{{ object.headline_variation }}
+
+Testing the requested variation/dimension
+
+.. code-block:: django
+
+	{% if text_variations.requested.language.code == 'es' %}
+
+Displaying information about the requested variation
+
+.. code-block:: django
+
+	<p>You are viewing the 
+	{{ text_variations.requested.audience.name }} 
+	version of the site in 
+	{{ text_variation.requested.language.name }}.</p>
+
+testing each field
+
+.. code-block:: django
+
+	{% if text_variations.headline.language.code == 'es' %}
+
+Testing if a field is not the requested variation
+
+.. code-block:: django
+
+	{% if text_variations.headline == text_variations.requested %}
+
+Does a specific variation exist for a field?
+
+.. code-block:: django
+
+	{% if object.text_variations.headline.en.ad %}
+
+
+get specific variation of a field
+
+.. code-block:: django
+
+	{% get_variation object headline language=es %}
+
+
+
+Context Processors
+==================
+
+.. code-block:: python
+
+	text_variations = {
+	    'requested': {'dim1': {'code': 'c2', 'name': 'Code2'},},
+	    'field1': {'dim1': {'code': 'co', 'name': 'Code1'},},
+	    'field2': {'dim1': {'code': 'c2', 'name': 'Code2'},}
+	}
+
+
+Canonical URLs
+==============
+
+When the returned variation does not match the requested variation
+
+If there are multiple fields on a model with variations, each could have different set defined variations, you will have to pick one field to define the canonical variation, such as blog entry content.

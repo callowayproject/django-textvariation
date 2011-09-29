@@ -1,0 +1,334 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Implementation Notes</title>
+    <link rel="stylesheet" href="../_static/epub.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="top" title="django-textvariation v0.1 documentation" href="../index.html" />
+    <link rel="up" title="Reference" href="index.html" />
+    <link rel="next" title="Management Commands" href="management_commands.html" />
+    <link rel="prev" title="Settings" href="settings.html" /> 
+  </head>
+  <body>
+<div id="docstitle">
+	<p>django-textvariation v0.1 documentation</p>
+</div>
+<div id="header">
+	<div id="title"><h1>Implementation Notes</h1></div>
+	<ul id="headerButtons">
+		<li id="toc_button"><div class="headerButton"><a href="#">Table of Contents</a></div></li>
+		<li id="page_buttons">
+			<div class="headerButton"><a href="../genindex.html" title="General Index" accesskey="I">index</a></div>
+			<div class="headerButton"><a href="management_commands.html" title="Management Commands" accesskey="N">next</a></div>
+			<div class="headerButton"><a href="settings.html" title="Settings" accesskey="P">previous</a></div>
+		</li>
+	</ul>
+</div>
+
+
+
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body">
+            
+  <div class="section" id="implementation-notes">
+<h1>Implementation Notes</h1>
+<ol class="arabic simple">
+<li>There could be potentially a large number of variations for an individual field.</li>
+<li>We want to keep the number of database calls/accesses and data storage to a minimum.</li>
+<li>We must track some metadata about the variations, such as: variations used, invalidated variations.</li>
+</ol>
+<div class="section" id="methods">
+<h2>Methods</h2>
+<ol class="arabic">
+<li><dl class="first docutils">
+<dt>Related table(s)</dt>
+<dd><p class="first">There are several variations:</p>
+<ul class="last simple">
+<li>One table for each model with variations (using a Foreign Key)</li>
+<li>One table for all models with variations (using a Generic Foreign Key)</li>
+<li>Use a JSON field for all text variations of an object</li>
+<li>A separate row for each text variation</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Additional field(s) in the model</dt>
+<dd><p class="first">There are two variations:</p>
+<ul class="last simple">
+<li>Use a JSON field for all text variations of an object</li>
+<li>A separate field for each potential text variation</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ol>
+</div>
+<div class="section" id="implementation">
+<h2>Implementation</h2>
+<p>A combination of both methods will be used in a non-normalized way to provide flexibility and performance. A variation table for each model with variations will store each variation for each field. A JSON/serialized field on the model will store a cached version of the same information.</p>
+<p>The fields in the variation table are:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="4%" />
+<col width="96%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">field</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>&lt;model&gt;_id</td>
+<td>Foreign key to the row in the master table</td>
+</tr>
+<tr><td>fieldname</td>
+<td>Name of the field in which this variation applies</td>
+</tr>
+<tr><td>&lt;name&gt;_dim</td>
+<td>A field for each defined dimension to contain the dimension variant</td>
+</tr>
+<tr><td>is_invalid</td>
+<td>A boolean flag to indicate the variation is currently invalid, as the default variation has changed. Declaring variations invalid instead of deleting them should be an option as to allow the site to continue to display the content.</td>
+</tr>
+<tr><td>value</td>
+<td>The value of this variation for this field</td>
+</tr>
+</tbody>
+</table>
+<p>The cache field contains a structure based on the current <a class="reference internal" href="settings.html#settings-dimension-priority"><em>DIMENSION_PRIORITY</em></a> settings.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">If this setting changes the cache field for each item in every table will need to be recalculated. There is a management command to do this.</p>
+</div>
+<p>The cache is a hierarchical dictionary with each field at the top level and then each dimension hierarchically contained in order of priority.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s">&#39;field&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&#39;dim1-variant1&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s">&#39;dim2-variant1&#39;</span><span class="p">:</span> <span class="s">&#39;variation value&#39;</span><span class="p">,</span>
+            <span class="s">&#39;dim2-variant2&#39;</span><span class="p">:</span> <span class="s">&#39;variation value&#39;</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-walkthrough">
+<h2>Example Walkthrough</h2>
+<p>Assuming that we have three dimensions: audience, text difficulty, and language; a table called article with three variable fields: headline, subhead, and content; the table and metadata table might look like:</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">See <a class="reference internal" href="settings.html#settings-example"><em>Example Settings</em></a> for the configuration.</p>
+</div>
+<img alt="../_images/variations-schema-example.png" src="../_images/variations-schema-example.png" />
+<p>If you added a row into article, you might have</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="3%" />
+<col width="18%" />
+<col width="12%" />
+<col width="11%" />
+<col width="15%" />
+<col width="41%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Id</th>
+<th class="head">Headline</th>
+<th class="head">Subhead</th>
+<th class="head">Byline</th>
+<th class="head">Content</th>
+<th class="head">Text Variations</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>1</td>
+<td>First article</td>
+<td>&nbsp;</td>
+<td>Carmen</td>
+<td>Lots of ...</td>
+<td><tt class="docutils literal"><span class="pre">{'headline':{'en':{'ad'...</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>The Text Variations field would contain a serialized dictionary:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s">&#39;headline&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&#39;en&#39;</span><span class="p">:</span> <span class="p">{</span> <span class="s">&#39;ad&#39;</span><span class="p">:</span> <span class="p">{</span> <span class="s">&#39;s&#39;</span><span class="p">:</span> <span class="s">&#39;First Article&#39;</span><span class="p">,},},},</span>
+    <span class="s">&#39;subhead&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&#39;en&#39;</span><span class="p">:</span> <span class="p">{</span> <span class="s">&#39;ad&#39;</span><span class="p">:</span> <span class="p">{</span> <span class="s">&#39;s&#39;</span><span class="p">:</span> <span class="s">&#39;&#39;</span><span class="p">,},},},</span>
+    <span class="s">&#39;content&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&#39;en&#39;</span><span class="p">:</span> <span class="p">{</span> <span class="s">&#39;ad&#39;</span><span class="p">:</span> <span class="p">{</span> <span class="s">&#39;s&#39;</span><span class="p">:</span> <span class="s">&#39;Lots of ...&#39;</span><span class="p">,},},},</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>And the Audience Variation table contains</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="3%" />
+<col width="11%" />
+<col width="10%" />
+<col width="13%" />
+<col width="13%" />
+<col width="20%" />
+<col width="11%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Id</th>
+<th class="head">Article Id</th>
+<th class="head">Fieldname</th>
+<th class="head">Audience Dim</th>
+<th class="head">Language Dim</th>
+<th class="head">Text Difficulty Dim</th>
+<th class="head">Is Invalid</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>1</td>
+<td>1</td>
+<td>headline</td>
+<td>ad</td>
+<td>en</td>
+<td>s</td>
+<td>False</td>
+<td>First Article</td>
+</tr>
+<tr><td>2</td>
+<td>1</td>
+<td>subhead</td>
+<td>ad</td>
+<td>en</td>
+<td>s</td>
+<td>False</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>3</td>
+<td>1</td>
+<td>content</td>
+<td>ad</td>
+<td>en</td>
+<td>s</td>
+<td>False</td>
+<td>Lots of ...</td>
+</tr>
+</tbody>
+</table>
+<p>If you add a spanish variation to the headline and content fields, the Text Variations field would contain:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s">&#39;headline&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&#39;en&#39;</span><span class="p">:</span> <span class="p">{</span> <span class="s">&#39;ad&#39;</span><span class="p">:</span> <span class="p">{</span> <span class="s">&#39;s&#39;</span><span class="p">:</span> <span class="s">&#39;First Article&#39;</span><span class="p">,},},</span>
+        <span class="s">&#39;es&#39;</span><span class="p">:</span> <span class="p">{</span> <span class="s">&#39;ad&#39;</span><span class="p">:</span> <span class="p">{</span> <span class="s">&#39;s&#39;</span><span class="p">:</span> <span class="s">u&#39;Artículo Primero&#39;</span><span class="p">,},},},</span>
+    <span class="s">&#39;subhead&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&#39;en&#39;</span><span class="p">:</span> <span class="p">{</span> <span class="s">&#39;ad&#39;</span><span class="p">:</span> <span class="p">{</span> <span class="s">&#39;s&#39;</span><span class="p">:</span> <span class="s">&#39;&#39;</span><span class="p">,},},},</span>
+    <span class="s">&#39;content&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&#39;en&#39;</span><span class="p">:</span> <span class="p">{</span> <span class="s">&#39;ad&#39;</span><span class="p">:</span> <span class="p">{</span> <span class="s">&#39;s&#39;</span><span class="p">:</span> <span class="s">&#39;Lots of ...&#39;</span><span class="p">,},},</span>
+        <span class="s">&#39;es&#39;</span><span class="p">:</span> <span class="p">{</span> <span class="s">&#39;ad&#39;</span><span class="p">:</span> <span class="p">{</span> <span class="s">&#39;s&#39;</span><span class="p">:</span> <span class="s">&#39;Mucho ...&#39;</span><span class="p">,},},},</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>And the Audience Variation table contains</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="3%" />
+<col width="11%" />
+<col width="10%" />
+<col width="13%" />
+<col width="13%" />
+<col width="20%" />
+<col width="11%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Id</th>
+<th class="head">Article Id</th>
+<th class="head">Fieldname</th>
+<th class="head">Audience Dim</th>
+<th class="head">Language Dim</th>
+<th class="head">Text Difficulty Dim</th>
+<th class="head">Is Invalid</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>1</td>
+<td>1</td>
+<td>headline</td>
+<td>ad</td>
+<td>en</td>
+<td>s</td>
+<td>False</td>
+<td>First Article</td>
+</tr>
+<tr><td>2</td>
+<td>1</td>
+<td>subhead</td>
+<td>ad</td>
+<td>en</td>
+<td>s</td>
+<td>False</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>3</td>
+<td>1</td>
+<td>content</td>
+<td>ad</td>
+<td>en</td>
+<td>s</td>
+<td>False</td>
+<td>Lots of ...</td>
+</tr>
+<tr><td>4</td>
+<td>1</td>
+<td>headline</td>
+<td>ad</td>
+<td>es</td>
+<td>s</td>
+<td>False</td>
+<td>Artículo Primero</td>
+</tr>
+<tr><td>5</td>
+<td>1</td>
+<td>content</td>
+<td>ad</td>
+<td>es</td>
+<td>s</td>
+<td>False</td>
+<td>Mucho ...</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="schema-migrations">
+<h2>Schema Migrations</h2>
+<p>Adding/removing the JSON field</p>
+<p>Adding/removing a metadata dimension field</p>
+</div>
+</div>
+
+
+          </div>
+      </div>
+    <div class="footer">
+    <p>
+      &copy; Copyright 2010, coordt.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+	</p>
+    </div>
+      <div class="clearer"></div>
+    </div>
+	<div id="breadcrumbs">
+		<a href="index.html" accesskey="U">Reference</a><img src="../_static/triangle_closed.png" height="9" width="9" alt="&gt;">
+		Implementation Notes
+		</ul>
+	</div>
+	<script type="text/javascript" charset="utf-8" src="../_static/toc.js"></script>
+  </body>
+</html>

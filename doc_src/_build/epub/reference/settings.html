@@ -1,0 +1,153 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Settings</title>
+    <link rel="stylesheet" href="../_static/epub.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="top" title="django-textvariation v0.1 documentation" href="../index.html" />
+    <link rel="up" title="Reference" href="index.html" />
+    <link rel="next" title="Implementation Notes" href="implementation_notes.html" />
+    <link rel="prev" title="Reference" href="index.html" /> 
+  </head>
+  <body>
+<div id="docstitle">
+	<p>django-textvariation v0.1 documentation</p>
+</div>
+<div id="header">
+	<div id="title"><h1>Settings</h1></div>
+	<ul id="headerButtons">
+		<li id="toc_button"><div class="headerButton"><a href="#">Table of Contents</a></div></li>
+		<li id="page_buttons">
+			<div class="headerButton"><a href="../genindex.html" title="General Index" accesskey="I">index</a></div>
+			<div class="headerButton"><a href="implementation_notes.html" title="Implementation Notes" accesskey="N">next</a></div>
+			<div class="headerButton"><a href="index.html" title="Reference" accesskey="P">previous</a></div>
+		</li>
+	</ul>
+</div>
+
+
+
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body">
+            
+  <div class="section" id="settings">
+<span id="id1"></span><h1>Settings</h1>
+<p>All configuration for Django Text Variations occurs within the <tt class="docutils literal"><span class="pre">TEXT_VARIATIONS</span></tt> setting variable. <tt class="docutils literal"><span class="pre">TEXT_VARIATIONS</span></tt> is a dictionary with the following keys:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#settings-dimensions"><em>DIMENSIONS</em></a></li>
+<li><a class="reference internal" href="#settings-dimension-priority"><em>DIMENSION_PRIORITY</em></a></li>
+<li><a class="reference internal" href="#settings-models"><em>MODELS</em></a></li>
+<li><a class="reference internal" href="#settings-default-url-regex"><em>DEFAULT_URL_REGEX</em></a></li>
+<li><a class="reference internal" href="#settings-url-regex-map"><em>URL_REGEX_MAP</em></a></li>
+<li><a class="reference internal" href="#settings-example"><em>Example Settings</em></a></li>
+</ul>
+<div class="section" id="dimensions">
+<span id="settings-dimensions"></span><h2>DIMENSIONS</h2>
+</div>
+<div class="section" id="dimension-priority">
+<span id="settings-dimension-priority"></span><h2>DIMENSION_PRIORITY</h2>
+</div>
+<div class="section" id="models">
+<span id="settings-models"></span><h2>MODELS</h2>
+</div>
+<div class="section" id="default-url-regex">
+<span id="settings-default-url-regex"></span><h2>DEFAULT_URL_REGEX</h2>
+</div>
+<div class="section" id="url-regex-map">
+<span id="settings-url-regex-map"></span><h2>URL_REGEX_MAP</h2>
+</div>
+<div class="section" id="example-settings">
+<span id="settings-example"></span><h2>Example Settings</h2>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">TEXT_VARIATIONS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">&#39;DIMENSIONS&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&#39;audience&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s">&#39;ad&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;Adult&#39;</span><span class="p">,</span>
+                <span class="s">&#39;fallback&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="s">&#39;tn&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;Teen&#39;</span><span class="p">,</span>
+                <span class="s">&#39;fallback&#39;</span><span class="p">:</span> <span class="s">&#39;ad&#39;</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="s">&#39;cd&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;Child&#39;</span><span class="p">,</span>
+                <span class="s">&#39;fallback&#39;</span><span class="p">:</span> <span class="s">&#39;tn&#39;</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="s">&#39;text_dificulty&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s">&#39;l&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;Low&#39;</span><span class="p">,</span>
+                <span class="s">&#39;fallback&#39;</span><span class="p">:</span> <span class="s">&#39;s&#39;</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="s">&#39;s&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;Standard&#39;</span><span class="p">,</span>
+                <span class="s">&#39;fallback&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="s">&#39;a&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;Advanced&#39;</span><span class="p">,</span>
+                <span class="s">&#39;fallback&#39;</span><span class="p">:</span> <span class="s">&#39;s&#39;</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="s">&#39;language&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s">&#39;en&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;English&#39;</span><span class="p">,</span>
+                <span class="s">&#39;fallback&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="s">&#39;es&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;Español&#39;</span><span class="p">,</span>
+                <span class="s">&#39;fallback&#39;</span><span class="p">:</span> <span class="s">&#39;en&#39;</span><span class="p">,</span>
+                <span class="s">&#39;domain&#39;</span><span class="p">:</span> <span class="s">&#39;es.example.com&#39;</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="s">&#39;es-mx&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;Español mexicano&#39;</span><span class="p">,</span>
+                <span class="s">&#39;fallback&#39;</span><span class="p">:</span> <span class="s">&#39;es&#39;</span><span class="p">,</span>
+                <span class="s">&#39;domain&#39;</span><span class="p">:</span> <span class="s">&#39;es-mx.example.com&#39;</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="s">&#39;fr&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">u&#39;Français&#39;</span><span class="p">,</span>
+                <span class="s">&#39;fallback&#39;</span><span class="p">:</span> <span class="s">&#39;en&#39;</span><span class="p">,</span>
+                <span class="s">&#39;domain&#39;</span><span class="p">:</span> <span class="s">&#39;fr.example.com&#39;</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+    <span class="p">},</span>
+    <span class="s">&#39;DIMENSION_PRIORITY&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;language&#39;</span><span class="p">,</span> <span class="s">&#39;audience&#39;</span><span class="p">,</span> <span class="s">&#39;text_difficulty&#39;</span><span class="p">],</span>
+    <span class="s">&#39;MODELS&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&#39;app.model&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;field1&#39;</span><span class="p">,</span> <span class="s">&#39;field2&#39;</span><span class="p">],</span>
+        <span class="s">&#39;app2.model&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;field1&#39;</span><span class="p">,</span> <span class="p">]</span>
+    <span class="p">},</span>
+    <span class="s">&#39;DEFAULT_URL_REGEX&#39;</span><span class="p">:</span> <span class="s">&#39;{language}/{path};{audience},{text_difficulty}&#39;</span><span class="p">,</span>
+    <span class="s">&#39;URL_REGEX_MAP&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&#39;app.model&#39;</span><span class="p">:</span> <span class="s">&#39;{path};{language},{audience},{text_difficulty}&#39;</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+      </div>
+    <div class="footer">
+    <p>
+      &copy; Copyright 2010, coordt.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+	</p>
+    </div>
+      <div class="clearer"></div>
+    </div>
+	<div id="breadcrumbs">
+		<a href="index.html" accesskey="U">Reference</a><img src="../_static/triangle_closed.png" height="9" width="9" alt="&gt;">
+		Settings
+		</ul>
+	</div>
+	<script type="text/javascript" charset="utf-8" src="../_static/toc.js"></script>
+  </body>
+</html>

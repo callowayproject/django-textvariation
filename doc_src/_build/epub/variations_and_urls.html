@@ -1,0 +1,166 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Variations and URLs</title>
+    <link rel="stylesheet" href="_static/epub.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="top" title="django-textvariation v0.1 documentation" href="index.html" />
+    <link rel="next" title="Templates" href="templates.html" />
+    <link rel="prev" title="Getting Started" href="getting_started.html" /> 
+  </head>
+  <body>
+<div id="docstitle">
+	<p>django-textvariation v0.1 documentation</p>
+</div>
+<div id="header">
+	<div id="title"><h1>Variations and URLs</h1></div>
+	<ul id="headerButtons">
+		<li id="toc_button"><div class="headerButton"><a href="#">Table of Contents</a></div></li>
+		<li id="page_buttons">
+			<div class="headerButton"><a href="genindex.html" title="General Index" accesskey="I">index</a></div>
+			<div class="headerButton"><a href="templates.html" title="Templates" accesskey="N">next</a></div>
+			<div class="headerButton"><a href="getting_started.html" title="Getting Started" accesskey="P">previous</a></div>
+		</li>
+	</ul>
+</div>
+
+
+
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body">
+            
+  <div class="section" id="variations-and-urls">
+<h1>Variations and URLs</h1>
+<p>URLs are important. Content should exist at one and only one URL. Each variation in content needs to have a unique URL. Django Text Variation tries to be as flexible as possible by using middleware to check configured patterns as they are requested.</p>
+<div class="section" id="ways-of-handling-variations-in-urls">
+<h2>Ways of Handling Variations in URLs</h2>
+<p>A great resource for my research was
+<a class="reference external" href="http://h3h.net/technology/designing-urls-for-multilingual-websites">this blog post</a><span class="link-target"> [http://h3h.net/technology/designing-urls-for-multilingual-websites]</span> regarding methods for handling multilingual websites. He defines nine ways of accomplishing language variations in content, many of which are not generic enough for use here.</p>
+<p>First and foremost, <a class="reference external" href="http://googlewebmastercentral.blogspot.com/2010/03/working-with-multi-regional-websites.html">query parameters are not recommended.</a><span class="link-target"> [http://googlewebmastercentral.blogspot.com/2010/03/working-with-multi-regional-websites.html]</span> and will not be supported.</p>
+<p>Ultimately, there are three ways specify a unique variation:</p>
+<ul class="simple">
+<li>Domain</li>
+<li>Path segment</li>
+<li>Path parameters or other delimited suffix</li>
+</ul>
+<p>You can use any combination of these methods to specify your variation.</p>
+<div class="section" id="domain">
+<h3>Domain</h3>
+<p>The domain difference could be at the host level, such as <tt class="docutils literal"><span class="pre">dim1.example.com</span></tt> or at a different top-level domain such as <tt class="docutils literal"><span class="pre">example.es</span></tt>. Top-level domains are probably only useful for specifying language variations.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You can only vary on one dimension within a domain. That means you can vary on language (<tt class="docutils literal"><span class="pre">en.example.com</span></tt>) or audience (<tt class="docutils literal"><span class="pre">kids.example.com</span></tt>), but not both (<tt class="docutils literal"><span class="pre">en.kids.example.com</span></tt>) within the domain.</p>
+</div>
+</div>
+<div class="section" id="path-segment">
+<h3>Path Segment</h3>
+<p>A common variation, especially for language specification, is to have the variant prefix the path, such as <tt class="docutils literal"><span class="pre">www.example.com/en/</span></tt> or <tt class="docutils literal"><span class="pre">www.example.com/es/</span></tt>. However, encoding the variant within the path (<tt class="docutils literal"><span class="pre">www.example.com/blog/en/</span></tt> ) is also supported.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Putting the variant within the path may make it difficult to re-create variation URLs of items. If the item&#8217;s URL is either prefixed or suffixed with dimension information, the variation URL is easily created.</p>
+</div>
+</div>
+<div class="section" id="path-parameters-or-delimited-suffix">
+<h3>Path Parameters or Delimited Suffix</h3>
+<p>Path parameters are defined by
+<a class="reference external" href="http://tools.ietf.org/html/rfc3986#section-3.3">Section 3.3 of RFC 3986</a><span class="link-target"> [http://tools.ietf.org/html/rfc3986#section-3.3]</span>
+as semicolon (;) and comma (,). One benefit of the semicolon is support within Python&#8217;s urlparse module. It is also possible to use a dot (.) delimiter if you wish, although it is less common and not recommended.</p>
+</div>
+</div>
+<div class="section" id="defining-the-url-patterns">
+<h2>Defining the URL patterns</h2>
+<div class="section" id="assigning-a-variant-to-a-domain">
+<h3>Assigning a variant to a domain</h3>
+<p>Domain variations are defined within each variant&#8217;s dictionary. Each variant for each dimension has several options, one of which is domain. If domain is not specified, the default domain is assumed.</p>
+</div>
+<div class="section" id="dimensions-within-the-path">
+<h3>Dimensions Within the Path</h3>
+<p>The middleware checks if the requested path fits a defined set of regular expressions in <tt class="docutils literal"><span class="pre">TEXT_VARIATIONS['URL_REGEXES']</span></tt>. To make the regular expressions easier to define, there are two shortcuts available.</p>
+<dl class="docutils">
+<dt><strong>{&lt;dimension_name&gt;}</strong></dt>
+<dd>This string will substitute a named group with every variant as an option. So <tt class="docutils literal"><span class="pre">'{language}'</span></tt> could result in <tt class="docutils literal"><span class="pre">'(?P&lt;language&gt;en|es|es-mx|fr)'</span></tt></dd>
+<dt><strong>{path}</strong></dt>
+<dd>This string will substitute a group to catch any character: <tt class="docutils literal"><span class="pre">(.*)</span></tt></dd>
+</dl>
+</div>
+<div class="section" id="examples">
+<h3>Examples</h3>
+<p>Assuming two dimensions: &#8216;language&#8217; and &#8216;audience&#8217; with variants &#8216;en&#8217;, &#8216;es&#8217;, &#8216;es-mx&#8217;, &#8216;fr&#8217; and &#8216;cd&#8217;, &#8216;tn&#8217;, &#8216;ad&#8217; respectively.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="3%" />
+<col width="37%" />
+<col width="60%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">#</th>
+<th class="head">RegEx Pattern</th>
+<th class="head">Result</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>1</td>
+<td><tt class="docutils literal"><span class="pre">'{language}/{path};{audience}'</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">'(?P&lt;language&gt;en|es|es-mx|fr)/(.*);(?P&lt;audience&gt;cd/tn/ad)'</span></tt></td>
+</tr>
+<tr><td>2</td>
+<td><tt class="docutils literal"><span class="pre">'{path}/{language}/{path};{audience}'</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">'(.*)/(?P&lt;language&gt;en|es|es-mx|fr)/(.*);(?P&lt;audience&gt;cd/tn/ad)'</span></tt></td>
+</tr>
+<tr><td>3</td>
+<td><tt class="docutils literal"><span class="pre">'{language}/{path}\.{audience}'</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">'(?P&lt;language&gt;en|es|es-mx|fr)/(.*)\.(?P&lt;audience&gt;cd/tn/ad)'</span></tt></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="textvariationmiddleware">
+<h2>TextVariationMiddleware</h2>
+<p>The middleware modifies the request</p>
+<ul class="simple">
+<li>Matches request path against the configured regular expressions</li>
+<li>If it matches, extract the dimensions and set into <tt class="docutils literal"><span class="pre">request.META['TEXT_VARIATIONS']</span></tt></li>
+<li>Join the unnamed groups in the matching regular expression with &#8220;/&#8221;</li>
+<li>Set <tt class="docutils literal"><span class="pre">request.path</span></tt>, <tt class="docutils literal"><span class="pre">request.path_info</span></tt> and <tt class="docutils literal"><span class="pre">request.META['PATH_INFO']</span></tt> to the resulting value</li>
+</ul>
+<p>See <a class="reference internal" href="reference/middleware.html#textvariationmiddleware"><em>TextVariationMiddleware</em></a> for more detailed information.</p>
+</div>
+<div class="section" id="requested-variation-returned-variation-and-urls">
+<h2>Requested Variation, Returned Variation and URLs</h2>
+<ul class="simple">
+<li>URLs without dimension information serve the default variation</li>
+<li>URLS should either contain no variation information, or contain information for every dimension.</li>
+<li>If a variant of one dimension is requested, the default variants of any other dimensions should be requested.</li>
+<li>If a requested variation does not exist, a fallback variation is returned.</li>
+<li>The Text Variation context processor will create a <tt class="docutils literal"><span class="pre">text_variations</span></tt> variable with the variations returned for each field. If there are multiple variable fields in a model, you should pick one field to populate a <tt class="docutils literal"><span class="pre">&lt;link</span> <span class="pre">rel=&quot;canonical&quot;</span> <span class="pre">href=&quot;&quot;</span> <span class="pre">/&gt;</span></tt> tag.</li>
+<li>The template could provide an alert on the page that the requested variation was not available and the substituted variation was.</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+      </div>
+    <div class="footer">
+    <p>
+      &copy; Copyright 2010, coordt.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+	</p>
+    </div>
+      <div class="clearer"></div>
+    </div>
+	<div id="breadcrumbs">
+		Variations and URLs
+		</ul>
+	</div>
+	<script type="text/javascript" charset="utf-8" src="_static/toc.js"></script>
+  </body>
+</html>

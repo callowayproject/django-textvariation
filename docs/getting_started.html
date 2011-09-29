@@ -1,0 +1,458 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Getting Started &mdash; django-textvariation v0.1 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="django-textvariation v0.1 documentation" href="index.html" />
+    <link rel="next" title="Variations and URLs" href="variations_and_urls.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
+  </head>
+  <body>
+<div id="docstitle">
+	<p>django-textvariation v0.1 documentation</p>
+</div>
+<div id="header">
+	<div id="title"><h1>Getting Started</h1></div>
+	<ul id="headerButtons">
+		<li id="toc_button"><div class="headerButton"><a href="#">Table of Contents</a></div></li>
+		<li id="page_buttons">
+			<div class="headerButton"><a href="genindex.html" title="General Index" accesskey="I">index</a></div>
+			<div class="headerButton"><a href="variations_and_urls.html" title="Variations and URLs" accesskey="N">next</a></div>
+			<div class="headerButton"><a href="installation.html" title="Installation" accesskey="P">previous</a></div>
+		</li>
+	</ul>
+</div>
+
+<div id="sphinxsidebar">
+  <div class="sphinxsidebarwrapper">
+	<ul><li class="toctree-l1"><a href="index.html">Main Page</a></li></ul>
+	<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="goals.html">Goals of Text Variations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="variations_and_urls.html">Variations and URLs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates.html">Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="editing_one_dimension.html">Editing One Dimension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/index.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="future_versions.html">Items for Future Versions</a></li>
+</ul>
+
+    <div id="searchbox" style="display: none">
+      
+        <form class="search" action="search.html" method="get">
+			<div class="search-wrapper">
+			<span class="search-left"></span>
+			<input class="prettysearch" type="text" name="q" size="18" />
+			<span class="search-right">&nbsp;</span>
+			</div>
+          <input type="submit" value="Search" class="searchbutton" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+        <p class="searchtip" style="font-size: 90%">
+        Enter search terms or a module, class or function name.
+        </p>
+    </div>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+</div>
+
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="getting-started">
+<h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="what-are-variations">
+<h2>What are Variations?<a class="headerlink" href="#what-are-variations" title="Permalink to this headline">¶</a></h2>
+<p>Textual variations are common in current websites, but are usually only implemented in one dimension: language. Django Text Variations allows you to have text (potentially) vary on multiple dimensions such as language, text difficulty, and audience.</p>
+<p>In Django Text Variations, a variation is a specific combination of variants from each dimension.</p>
+<div class="section" id="dimensions">
+<h3>Dimensions<a class="headerlink" href="#dimensions" title="Permalink to this headline">¶</a></h3>
+<p>A dimension is one set of ways in which text may vary, such as language. Each dimension has specific ways in which it could vary, such as English and Spanish, called variants.</p>
+<p>In further examples, we&#8217;ll assume that we need text to (potentially) vary on three dimensions.</p>
+<ul class="simple">
+<li><strong>Audiences</strong> with three variants: Adult, Teen, Child</li>
+<li><strong>Text Difficulty</strong> with three variants: Low, Standard, Advanced</li>
+<li><strong>Language</strong> with four variants: English, Spanish, Mexican Spanish, French</li>
+</ul>
+</div>
+<div class="section" id="defaults-and-graceful-fallback">
+<h3>Defaults and Graceful Fallback<a class="headerlink" href="#defaults-and-graceful-fallback" title="Permalink to this headline">¶</a></h3>
+<p>In many cases, possibly most, you don&#8217;t need text variations for every possible combination of dimensions. In the case when a specific combination is requested but does does not exist for that object, another variation is delivered. The variation delivered is based on the initial request, the priority of the dimensions, and the available variations.</p>
+<p>Django Text Variations is designed to allow for a default, which is the initial text provided, and is assigned to a combination based on the configuration of the dimensions. In the case where no other variations are provided, the default is always delivered.</p>
+<p>Within each dimension, there may be a preference in which alternates are resolved. In the case of a language dimension, you may have an object missing a Mexican Spanish variation look first for a Spanish variation, and finally use default English variation. A missing French variation would simply look for an English variation.</p>
+<div class="highlight-python"><pre>Mexican Spanish
++-&gt; Spanish
+    +-&gt; English
+
+French
++-&gt; English</pre>
+</div>
+</div>
+<div class="section" id="configuration-of-dimensions-and-fallback">
+<h3>Configuration of Dimensions and Fallback<a class="headerlink" href="#configuration-of-dimensions-and-fallback" title="Permalink to this headline">¶</a></h3>
+<p>Each text variation dimension defines a list of variants. Each variant has a &#8220;code&#8221; or &#8220;slug&#8221;, a name, and a fall back variant. One variant should not have a fall back. This is the default variant for the dimension.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If a dimension contains multiple variants without a fall back variant, strange results may occur.</p>
+</div>
+<p>Because there are multiple ways to find the next potential variation, if the requested variation is missing, you specify the priority of the dimensions.</p>
+<p>So, in our example dimensions, we could define them as:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="14%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Dimension</th>
+<th class="head">Name</th>
+<th class="head">Code</th>
+<th class="head">Fallback</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td rowspan="3">Audience</td>
+<td>Adult</td>
+<td>ad</td>
+<td><em>None</em></td>
+</tr>
+<tr><td>Teen</td>
+<td>tn</td>
+<td>Adult</td>
+</tr>
+<tr><td>Child</td>
+<td>cd</td>
+<td>Teen</td>
+</tr>
+<tr><td rowspan="3">Text Difficulty</td>
+<td>Low</td>
+<td>l</td>
+<td>Standard</td>
+</tr>
+<tr><td>Standard</td>
+<td>s</td>
+<td><em>None</em></td>
+</tr>
+<tr><td>Advanced</td>
+<td>a</td>
+<td>Standard</td>
+</tr>
+<tr><td rowspan="4">Language</td>
+<td>English</td>
+<td>en</td>
+<td><em>None</em></td>
+</tr>
+<tr><td>Español</td>
+<td>es</td>
+<td>English</td>
+</tr>
+<tr><td>Español mexicano</td>
+<td>es-mx</td>
+<td>Español</td>
+</tr>
+<tr><td>Français</td>
+<td>fr</td>
+<td>English</td>
+</tr>
+</tbody>
+</table>
+<p>And set the dimension priority as:</p>
+<ol class="arabic simple">
+<li>Language</li>
+<li>Audience</li>
+<li>Text Difficulty</li>
+</ol>
+<p>How the priority determines the select of the variation is covered in the next section.</p>
+</div>
+<div class="section" id="how-a-variation-is-determined">
+<h3>How a variation is determined<a class="headerlink" href="#how-a-variation-is-determined" title="Permalink to this headline">¶</a></h3>
+<p>When a requested variation is not available, Django Text Variation looks for the next available variation by falling back through each variant of each dimension in reverse order of priority. In this way, if language is the highest priority, look for a variation that is the fall back of the other dimensions, but within the selected language before falling back on the next available language variation.</p>
+<p>Here is an example:</p>
+<ol class="arabic simple">
+<li>A new user to the page gets the default variation (<strong>Adult/Standard/English</strong>)</li>
+<li>This user clicks a &#8216;Ver en Español mexicano&#8217; (&#8216;view in Mexican Spanish&#8217;) link. Variations are looked for in the following order:</li>
+</ol>
+<table border="1" class="docutils">
+<colgroup>
+<col width="2%" />
+<col width="19%" />
+<col width="36%" />
+<col width="43%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">#</th>
+<th class="head">Audience</th>
+<th class="head">Text Difficulty</th>
+<th class="head">Language</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>1</td>
+<td>Adult</td>
+<td>Standard</td>
+<td>Español mexicano</td>
+</tr>
+<tr><td>2</td>
+<td>Adult</td>
+<td>Standard</td>
+<td>Español</td>
+</tr>
+<tr><td>3</td>
+<td>Adult</td>
+<td>Standard</td>
+<td>English</td>
+</tr>
+</tbody>
+</table>
+<p>In this case, the only variation from the default is language, so that is the only dimension that changes.</p>
+<ol class="arabic simple" start="3">
+<li>Next the user clicks on a &#8216;niños edición&#8217; (&#8216;kid&#8217;s edition&#8217;) link. Variations are looked for in the following order:</li>
+</ol>
+<table border="1" class="docutils">
+<colgroup>
+<col width="2%" />
+<col width="19%" />
+<col width="36%" />
+<col width="43%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">#</th>
+<th class="head">Audience</th>
+<th class="head">Text Difficulty</th>
+<th class="head">Language</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>1</td>
+<td>Child</td>
+<td>Standard</td>
+<td>Español mexicano</td>
+</tr>
+<tr><td>2</td>
+<td>Teen</td>
+<td>Standard</td>
+<td>Español mexicano</td>
+</tr>
+<tr><td>3</td>
+<td>Adult</td>
+<td>Standard</td>
+<td>Español mexicano</td>
+</tr>
+<tr><td>4</td>
+<td>Child</td>
+<td>Standard</td>
+<td>Español</td>
+</tr>
+<tr><td>5</td>
+<td>Teen</td>
+<td>Standard</td>
+<td>Español</td>
+</tr>
+<tr><td>6</td>
+<td>Adult</td>
+<td>Standard</td>
+<td>Español</td>
+</tr>
+<tr><td>7</td>
+<td>Child</td>
+<td>Standard</td>
+<td>English</td>
+</tr>
+<tr><td>8</td>
+<td>Teen</td>
+<td>Standard</td>
+<td>English</td>
+</tr>
+<tr><td>9</td>
+<td>Adult</td>
+<td>Standard</td>
+<td>English</td>
+</tr>
+</tbody>
+</table>
+<p>Now there are two dimension deviations from the default variation. Since the higher priority of these two is the Language dimension, each variant of the Audience dimension is substituted before trying each variant on the Language dimension.</p>
+<ol class="arabic simple" start="4">
+<li>Next the user clicks on a &#8216;texto menor dificultad&#8217; (lower text difficulty) link. Variations are looked for in the following order:</li>
+</ol>
+<table border="1" class="docutils">
+<colgroup>
+<col width="5%" />
+<col width="19%" />
+<col width="35%" />
+<col width="42%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">#</th>
+<th class="head">Audience</th>
+<th class="head">Text Difficulty</th>
+<th class="head">Language</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>1</td>
+<td>Child</td>
+<td>Low</td>
+<td>Español mexicano</td>
+</tr>
+<tr><td>2</td>
+<td>Child</td>
+<td>Standard</td>
+<td>Español mexicano</td>
+</tr>
+<tr><td>3</td>
+<td>Teen</td>
+<td>Low</td>
+<td>Español mexicano</td>
+</tr>
+<tr><td>4</td>
+<td>Teen</td>
+<td>Standard</td>
+<td>Español mexicano</td>
+</tr>
+<tr><td>5</td>
+<td>Adult</td>
+<td>Low</td>
+<td>Español mexicano</td>
+</tr>
+<tr><td>6</td>
+<td>Adult</td>
+<td>Standard</td>
+<td>Español mexicano</td>
+</tr>
+<tr><td>7</td>
+<td>Child</td>
+<td>Low</td>
+<td>Español</td>
+</tr>
+<tr><td>8</td>
+<td>Child</td>
+<td>Standard</td>
+<td>Español</td>
+</tr>
+<tr><td>9</td>
+<td>Teen</td>
+<td>Low</td>
+<td>Español</td>
+</tr>
+<tr><td>10</td>
+<td>Teen</td>
+<td>Standard</td>
+<td>Español</td>
+</tr>
+<tr><td>11</td>
+<td>Adult</td>
+<td>Low</td>
+<td>Español</td>
+</tr>
+<tr><td>12</td>
+<td>Adult</td>
+<td>Standard</td>
+<td>Español</td>
+</tr>
+<tr><td>13</td>
+<td>Child</td>
+<td>Low</td>
+<td>English</td>
+</tr>
+<tr><td>14</td>
+<td>Child</td>
+<td>Standard</td>
+<td>English</td>
+</tr>
+<tr><td>15</td>
+<td>Teen</td>
+<td>Low</td>
+<td>English</td>
+</tr>
+<tr><td>16</td>
+<td>Teen</td>
+<td>Standard</td>
+<td>English</td>
+</tr>
+<tr><td>17</td>
+<td>Adult</td>
+<td>Low</td>
+<td>English</td>
+</tr>
+<tr><td>18</td>
+<td>Adult</td>
+<td>Standard</td>
+<td>English</td>
+</tr>
+</tbody>
+</table>
+<p>The user has requested a variation in which all three dimensions are different from the default. Using the dimension priority, Text Difficulty variants are substituted before altering the audience or Language.</p>
+<p>This fall back methodology allows a content producer to specify a variation that applies for only one dimension. The most specific variation relating to the requested variation is returned.</p>
+</div>
+</div>
+<div class="section" id="specifying-variations">
+<h2>Specifying Variations<a class="headerlink" href="#specifying-variations" title="Permalink to this headline">¶</a></h2>
+<p>Initially, a field with variations will show a tabbed interface with a single tab and a button to add a variation.</p>
+<img alt="_images/variations-admin-interface-initial.png" src="_images/variations-admin-interface-initial.png" />
+<p>Clicking on this link creates a new tab with selection boxes for each dimension.</p>
+<img alt="_images/variations-admin-interface-add-var.png" src="_images/variations-admin-interface-add-var.png" />
+<p>Changing one of the dimensions changes the name of the tab.</p>
+<img alt="_images/variations-admin-interface-add-change1.png" src="_images/variations-admin-interface-add-change1.png" />
+<p>Changing another dimensions changes the name of the tab again.</p>
+<img alt="_images/variations-admin-interface-add-change2.png" src="_images/variations-admin-interface-add-change2.png" />
+<div class="section" id="declaring-something-inappropriate">
+<h3>Declaring Something Inappropriate<a class="headerlink" href="#declaring-something-inappropriate" title="Permalink to this headline">¶</a></h3>
+<p>In some cases you may want to specifically exclude variants of a dimension from returning content. Content that is inappropriate for children is a good example.</p>
+<p>To exclude content, simply create an empty variation. If you changed the Audience dimension to &#8220;Child&#8221; and left the field blank, then the template could properly display something like &#8220;This content is inappropriate for children.&#8221;</p>
+<img alt="_images/variations-admin-interface-exclude.png" src="_images/variations-admin-interface-exclude.png" />
+</div>
+</div>
+<div class="section" id="configuring-models-with-variations">
+<h2>Configuring Models with Variations<a class="headerlink" href="#configuring-models-with-variations" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="variations">
+<h3>Variations<a class="headerlink" href="#variations" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="setting-up-search">
+<h2>Setting Up Search<a class="headerlink" href="#setting-up-search" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div> 
+        </div>
+      </div>
+    <div class="footer">
+    <p>
+      &copy; Copyright 2010, coordt.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+	</p>
+    </div>
+      <div class="clearer"></div>
+    </div>
+	<div id="breadcrumbs">
+		Getting Started
+		</ul>
+	</div>
+	<script type="text/javascript" charset="utf-8" src="_static/toc.js"></script>
+  </body>
+</html>

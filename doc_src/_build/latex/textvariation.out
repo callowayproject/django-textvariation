@@ -1,0 +1,26 @@
+\BOOKMARK [0][-]{chapter.1}{Goals of Text Variations}{}% 1
+\BOOKMARK [0][-]{chapter.2}{Installation}{}% 2
+\BOOKMARK [1][-]{section.2.1}{Dependencies}{chapter.2}% 3
+\BOOKMARK [0][-]{chapter.3}{Getting Started}{}% 4
+\BOOKMARK [1][-]{section.3.1}{What are Variations?}{chapter.3}% 5
+\BOOKMARK [1][-]{section.3.2}{Specifying Variations}{chapter.3}% 6
+\BOOKMARK [1][-]{section.3.3}{Configuring Models with Variations}{chapter.3}% 7
+\BOOKMARK [1][-]{section.3.4}{Setting Up Search}{chapter.3}% 8
+\BOOKMARK [0][-]{chapter.4}{Variations and URLs}{}% 9
+\BOOKMARK [1][-]{section.4.1}{Ways of Handling Variations in URLs}{chapter.4}% 10
+\BOOKMARK [1][-]{section.4.2}{Defining the URL patterns}{chapter.4}% 11
+\BOOKMARK [1][-]{section.4.3}{TextVariationMiddleware}{chapter.4}% 12
+\BOOKMARK [1][-]{section.4.4}{Requested Variation, Returned Variation and URLs}{chapter.4}% 13
+\BOOKMARK [0][-]{chapter.5}{Templates}{}% 14
+\BOOKMARK [1][-]{section.5.1}{Context Processors}{chapter.5}% 15
+\BOOKMARK [1][-]{section.5.2}{Canonical URLs}{chapter.5}% 16
+\BOOKMARK [0][-]{chapter.6}{Editing One Dimension}{}% 17
+\BOOKMARK [0][-]{chapter.7}{Reference}{}% 18
+\BOOKMARK [1][-]{section.7.1}{Settings}{chapter.7}% 19
+\BOOKMARK [1][-]{section.7.2}{Implementation Notes}{chapter.7}% 20
+\BOOKMARK [1][-]{section.7.3}{Management Commands}{chapter.7}% 21
+\BOOKMARK [1][-]{section.7.4}{Template Tags}{chapter.7}% 22
+\BOOKMARK [1][-]{section.7.5}{TextVariationMiddleware}{chapter.7}% 23
+\BOOKMARK [1][-]{section.7.6}{Object Methods}{chapter.7}% 24
+\BOOKMARK [0][-]{chapter.8}{Items for Future Versions}{}% 25
+\BOOKMARK [0][-]{chapter.9}{Indices and tables}{}% 26

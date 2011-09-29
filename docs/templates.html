@@ -1,0 +1,158 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Templates &mdash; django-textvariation v0.1 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="django-textvariation v0.1 documentation" href="index.html" />
+    <link rel="next" title="Editing One Dimension" href="editing_one_dimension.html" />
+    <link rel="prev" title="Variations and URLs" href="variations_and_urls.html" /> 
+  </head>
+  <body>
+<div id="docstitle">
+	<p>django-textvariation v0.1 documentation</p>
+</div>
+<div id="header">
+	<div id="title"><h1>Templates</h1></div>
+	<ul id="headerButtons">
+		<li id="toc_button"><div class="headerButton"><a href="#">Table of Contents</a></div></li>
+		<li id="page_buttons">
+			<div class="headerButton"><a href="genindex.html" title="General Index" accesskey="I">index</a></div>
+			<div class="headerButton"><a href="editing_one_dimension.html" title="Editing One Dimension" accesskey="N">next</a></div>
+			<div class="headerButton"><a href="variations_and_urls.html" title="Variations and URLs" accesskey="P">previous</a></div>
+		</li>
+	</ul>
+</div>
+
+<div id="sphinxsidebar">
+  <div class="sphinxsidebarwrapper">
+	<ul><li class="toctree-l1"><a href="index.html">Main Page</a></li></ul>
+	<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="goals.html">Goals of Text Variations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="variations_and_urls.html">Variations and URLs</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="editing_one_dimension.html">Editing One Dimension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/index.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="future_versions.html">Items for Future Versions</a></li>
+</ul>
+
+    <div id="searchbox" style="display: none">
+      
+        <form class="search" action="search.html" method="get">
+			<div class="search-wrapper">
+			<span class="search-left"></span>
+			<input class="prettysearch" type="text" name="q" size="18" />
+			<span class="search-right">&nbsp;</span>
+			</div>
+          <input type="submit" value="Search" class="searchbutton" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+        <p class="searchtip" style="font-size: 90%">
+        Enter search terms or a module, class or function name.
+        </p>
+    </div>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+</div>
+
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="templates">
+<h1>Templates<a class="headerlink" href="#templates" title="Permalink to this headline">¶</a></h1>
+<p>At the top of the page, you need to call a template tag to get the proper variation fit for the object</p>
+<div class="highlight-django"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">get_text_variations</span> <span class="nv">object</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Default usage: get the best variation fit for the requested variation:</p>
+<div class="highlight-django"><div class="highlight"><pre><span class="cp">{{</span> <span class="nv">object.headline_variation</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Testing the requested variation/dimension</p>
+<div class="highlight-django"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">if</span> <span class="nv">text_variations.requested.language.code</span> <span class="o">==</span> <span class="s1">&#39;es&#39;</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Displaying information about the requested variation</p>
+<div class="highlight-django"><div class="highlight"><pre><span class="x">&lt;p&gt;You are viewing the </span><span class="cp">{{</span> <span class="nv">text_variations.requested.audience.name</span> <span class="cp">}}</span><span class="x"> version of the site in </span><span class="cp">{{</span> <span class="nv">text_variation.requested.language.name</span> <span class="cp">}}</span><span class="x">.&lt;/p&gt;</span>
+</pre></div>
+</div>
+<p>testing each field</p>
+<div class="highlight-django"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">if</span> <span class="nv">text_variations.headline.language.code</span> <span class="o">==</span> <span class="s1">&#39;es&#39;</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Testing if a field is not the requested variation</p>
+<div class="highlight-django"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">if</span> <span class="nv">text_variations.headline</span> <span class="o">==</span> <span class="nv">text_variations.requested</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Does a specific variation exist for a field?</p>
+<div class="highlight-django"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">if</span> <span class="nv">object.text_variations.headline.en.ad</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>get specific variation of a field</p>
+<div class="highlight-django"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">get_variation</span> <span class="nv">object</span> <span class="nv">headline</span> <span class="nv">language</span><span class="o">=</span><span class="nv">es</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<div class="section" id="context-processors">
+<h2>Context Processors<a class="headerlink" href="#context-processors" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">text_variations</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">&#39;requested&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;dim1&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;code&#39;</span><span class="p">:</span> <span class="s">&#39;c2&#39;</span><span class="p">,</span> <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">&#39;Code2&#39;</span><span class="p">},},</span>
+    <span class="s">&#39;field1&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&#39;dim1&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;code&#39;</span><span class="p">:</span> <span class="s">&#39;co&#39;</span><span class="p">,</span> <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">&#39;Code1&#39;</span><span class="p">},</span>
+    <span class="p">},</span>
+    <span class="s">&#39;field2&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&#39;dim1&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;code&#39;</span><span class="p">:</span> <span class="s">&#39;c2&#39;</span><span class="p">,</span> <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">&#39;Code2&#39;</span><span class="p">},</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="canonical-urls">
+<h2>Canonical URLs<a class="headerlink" href="#canonical-urls" title="Permalink to this headline">¶</a></h2>
+<p>When the returned variation does not match the requested variation</p>
+<p>If there are multiple fields on a model with variations, each could have different set defined variations, you will have to pick one field to define the canonical variation, such as blog entry content.</p>
+</div>
+</div>
+
+
+          </div> 
+        </div>
+      </div>
+    <div class="footer">
+    <p>
+      &copy; Copyright 2010, coordt.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+	</p>
+    </div>
+      <div class="clearer"></div>
+    </div>
+	<div id="breadcrumbs">
+		Templates
+		</ul>
+	</div>
+	<script type="text/javascript" charset="utf-8" src="_static/toc.js"></script>
+  </body>
+</html>

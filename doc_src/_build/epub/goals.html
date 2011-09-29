@@ -1,0 +1,73 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Goals of Text Variations</title>
+    <link rel="stylesheet" href="_static/epub.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="top" title="django-textvariation v0.1 documentation" href="index.html" />
+    <link rel="next" title="Installation" href="installation.html" />
+    <link rel="prev" title="Contents" href="index.html" /> 
+  </head>
+  <body>
+<div id="docstitle">
+	<p>django-textvariation v0.1 documentation</p>
+</div>
+<div id="header">
+	<div id="title"><h1>Goals of Text Variations</h1></div>
+	<ul id="headerButtons">
+		<li id="toc_button"><div class="headerButton"><a href="#">Table of Contents</a></div></li>
+		<li id="page_buttons">
+			<div class="headerButton"><a href="genindex.html" title="General Index" accesskey="I">index</a></div>
+			<div class="headerButton"><a href="installation.html" title="Installation" accesskey="N">next</a></div>
+			<div class="headerButton"><a href="index.html" title="Contents" accesskey="P">previous</a></div>
+		</li>
+	</ul>
+</div>
+
+
+
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body">
+            
+  <div class="section" id="goals-of-text-variations">
+<h1>Goals of Text Variations</h1>
+<p>Django Text Variations grew out of a need for certain types of content to have multiple versions of text based on specified variation types.</p>
+<p>In short, text variations needs to accomplish:</p>
+<ol class="arabic simple">
+<li>There can be multiple types of variations (e.g. language, audience, text difficulty)</li>
+<li>There could be multiple fields on a model which require text variations.</li>
+<li>There could be a maximum number of variations of content equal to the multiplication of the number of each variation type. (e.g. text difficulty levels x audiences x languages)</li>
+<li>Variation types are configurable on a per-project (site) implementation.</li>
+<li>Any of the variation types, or the variations within that type, could be added to or removed from at any time. (e.g. deciding on going from one language to multiple languages, or going from two language variations to three)</li>
+<li>There should be a way to handle addressing the variation in a url.</li>
+<li>Not all the variations will be used for each item.</li>
+<li>There should be a default variation. If an addressed variation does not exist, it should use the default variation, or a variation algorithmically specified using available variations (graceful fallback).</li>
+<li>Invalidation of variations should happen when the default content is changed.</li>
+</ol>
+</div>
+
+
+          </div>
+      </div>
+    <div class="footer">
+    <p>
+      &copy; Copyright 2010, coordt.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+	</p>
+    </div>
+      <div class="clearer"></div>
+    </div>
+	<div id="breadcrumbs">
+		Goals of Text Variations
+		</ul>
+	</div>
+	<script type="text/javascript" charset="utf-8" src="_static/toc.js"></script>
+  </body>
+</html>
